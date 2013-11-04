@@ -16,8 +16,7 @@ fi
 
 if [[ "$platform" == 'osx' ]]; then
   # show the banner and wait for a response
-  printf "%s" $'\e[1;32m
-                                   
+  printf "%s" $'\e[1;32m 
           ##                       
          #  #                      
   ###    #      ###   # ##   #   # 
@@ -25,8 +24,6 @@ if [[ "$platform" == 'osx' ]]; then
  #       #     #####  #   #   # #  
  #   #   #     #      #   #   # #  
   ###    #      ###   #   #    #   
-                                   
-                                   
   \e[1;31m
   \e[0m
   Hello! Welcome to the easy install of cfenv.
@@ -97,7 +94,8 @@ if [[ "$platform" == 'osx' ]]; then
   --> Finalizing installation..."
   touch $HOME/.profile
   echo "source $HOME/.cfenv/env.sh" >> "$HOME/.profile"
-
+  chmod +x $HOME/.cfenv/libexec/*
+  
   cd $HOME
 
 elif [[ "$platform" -eq 'freebsd' ]]; then
