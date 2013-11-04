@@ -1,7 +1,6 @@
 CfenvCo::Application.routes.draw do
   root :to => "splash#index"
-
-  get "/script/:token.sh" => "splash#script"
+  get '/scripts/install' => 'splash#script'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
