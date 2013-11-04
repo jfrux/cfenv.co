@@ -1,7 +1,6 @@
 class SplashController < ApplicationController
   def index
-    @view = Views::Splash::Index.new(:user => current_user, :request => request)
-    render :index
+    
   end
 
   def script
