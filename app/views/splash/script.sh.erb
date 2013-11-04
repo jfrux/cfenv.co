@@ -44,6 +44,8 @@ if [[ "$platform" == 'osx' ]]; then
     echo
     echo "
   --> Grabbing Latest CFENV version..."
+    rm -rf /tmp/cfenv
+    rm /tmp/cfenv.zip
     mkdir -p /tmp/cfenv
     if type curl &>/dev/null; then
       curl -C - -o "/tmp/cfenv.zip" -qLf "https://github.com/joshuairl/cfenv/archive/master.zip"
