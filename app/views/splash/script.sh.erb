@@ -42,10 +42,11 @@ if [[ "$platform" == 'osx' ]]; then
 
   if [ ! -f $HOME/.cfenv/env.sh ]; then
     echo
-    echo "cd /
+    echo "
   --> Grabbing Latest CFENV version..."
     
     mkdir -p /tmp/cfenv
+    
     if type curl &>/dev/null; then
       curl -C - -o "/tmp/cfenv.zip" -qLf "https://github.com/joshuairl/cfenv/archive/master.zip"
       tar -xf /tmp/cfenv.zip -C /tmp/cfenv/
@@ -59,6 +60,8 @@ if [[ "$platform" == 'osx' ]]; then
       exit 1
     fi
   else
+    mkdir -p /tmp/cfenv
+    
     echo
     printf "%s" $'\e[31m
   warning! cfenv already appears to be installed...\e[1;31m
@@ -86,11 +89,11 @@ if [[ "$platform" == 'osx' ]]; then
 
       if type curl &>/dev/null; then
         curl -C - -o "/tmp/cfenv.zip" -qLf "https://github.com/joshuairl/cfenv/archive/master.zip"
-        tar -xf /tmp/cfenv.zip -C /tmp/cfenv/
+        tar -xf /tmp/cfenv.zip -C /tmp/cfenv
         cp -rf /tmp/cfenv/cfenv-master/* $HOME/.cfenv
       elif type wget &>/dev/null; then
         wget -nv -c -O "/tmp/cfenv.zip" "https://github.com/joshuairl/cfenv/archive/master.zip"
-        tar -xf /tmp/cfenv.zip -C /tmp/cfenv/
+        tar -xf /tmp/cfenv.zip -C /tmp/cfenv
         cp -rf /tmp/cfenv/cfenv-master/* $HOME/.cfenv
       else
         echo "error: please install \`curl\` or \`wget\` and try again" >&2
@@ -112,6 +115,8 @@ elif [[ "$platform" -eq 'linux' ]]; then
   echo "LINUX"
 fi
 
+rm -rf /tmp/cfenv
+rm /tmp/cfenv.zip
 
 
 printf "%s" $'\e[0;1m'
@@ -120,7 +125,4 @@ echo "
   Close any active terminal windows and re-open to ensure everything is properly sourced.
   If you do not wish to close terminal, you may try to type 'source ~/.profile' to enable it for this session.
 "
-
-rm -rf /tmp/cfenv
-rm /tmp/cfenv.zip
 printf "%s" $'\e[0;0m'
