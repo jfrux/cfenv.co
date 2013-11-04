@@ -1,0 +1,110 @@
+<div id="width">
+ <h1>cfenv</h1>
+ <h2>Groom your app's CFML environment.</h2>
+  <div class="code">
+    bash &lt;(curl -s <a href="http://cfenv.co/script.sh">http://cfenv.co/script.sh</a>)
+  </div>
+  <h3>Run this command in your terminal to install cfenv on your machine.</h3>
+  <hr />
+  <div class="information">
+    <div class="info-item">
+      <h2>Why should I use it?</h2>
+      <p>
+        Use cfenv to pick a Railo version for your application and guarantee that your development environment matches production.
+      </p>
+      <p>
+        <strong>Configuration free.</strong> Run our simple installer from ANY computer, and you'll be developing a new CFML application within roughly a minute.
+      </p>
+      <p>
+        <strong>Truly empowering.</strong> Specify your app's Railo version once, in a single file. Keep all your teammates on the same page. No headaches running apps on different versions of Railo. Just Works™ from the command line. Override the Railo version anytime: just set an environment variable.
+      </p>
+      <p>
+        <strong>It just works.</strong> cfenv is concerned solely with managing and switching Railo versions. It's simple and predictable.
+      </p>
+    </div>
+    <hr />
+    <div class="info-item">
+      <h2>What if I use Adobe ColdFusion (and not Railo)?</h2>
+      <p>
+        Using Adobe ColdFusion is not a problem generally, but we understand your concerns.
+      </p>
+      <p>
+        We do not currently have support for Adobe ColdFusion as of yet but we're working on a good solid method for using cfenv to install and manage ACF versions within your development workflow.  We're thinking it's definitely possible.
+      </p>
+    </div>
+    <hr />
+    <div class="info-item">
+      <h2>Does this work on Windows?</h2>
+      <p>
+        Although we do not personally use Windows to develop on, we're trying to make cfenv as usable as possible across all platforms.
+      </p>
+      <p>
+        We have not done any REAL testing on Windows with cfenv but we suspect it will work best in it's current state when ran within cygwin or the like.
+      </p>
+    </div>
+  </div>
+  <hr />
+  <div class="information">
+    <div class="info-item">
+      <h2>Basic Usage</h2>
+      <p>
+        <strong>List versions of Railo available for download</strong>
+        <br />
+<pre>
+$> cfenv install -l
+Available versions:
+  3.0.2.001
+  3.0.3.000
+  3.3.3.001
+  4.0.4.001
+  4.1.1.000
+  4.1.1.009
+</pre>
+      </p>
+      <p>
+        <strong>Installing a version of Railo</strong>
+        <br />
+<pre>
+$> cfenv install 4.1.1.009
+Downloading Railo v4.1.1.009...
+-> http://d21hf0vixi4dmy.cloudfront.net/railo/remote/download/4.1.1.009/railix/macosx/railo-express-4.1.1.009-macosx.zip
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 63.6M  100 63.6M    0     0  6382k      0  0:00:10  0:00:10 --:--:-- 5499k
+Download complete.
+Installing 4.1.1.009...
+Copying files to ~/.cfenv...
+Configuring Railo Run CLI...
+Installed 4.1.1.009 to /Users/user/.cfenv/versions/4.1.1.009
+</pre>
+      </p>
+      <p>
+        <strong>Starting a new CFML Project with Railo 4.1.1.009</strong>
+        <br />
+<pre>
+$> mkdir -p ~/Projects/my_new_cfml_app
+$> cd ~/Projects/my_new_cfml_app
+$> cfenv local 4.1.1.009
+</pre>
+      </p>
+      <p>
+        <strong>Setting a global default version for all directories if not specified locally.</strong>
+        <br />
+<pre>
+$> cfenv global 4.1.1.009
+</pre>
+      </p>
+      <p>
+        For more extensive documentation, please visit GitHub at <a href="https://github.com/joshuairl/cfenv">https://github.com/joshuairl/cfenv</a>.
+      </p>
+    </div>
+    <hr />
+    <div class="info-item">
+      <h2>Contributing</h2>
+      <p>
+        We welcome your contributions.  Fork the project on GitHub @ <a href="https://github.com/joshuairl/cfenv">https://github.com/joshuairl/cfenv</a>.
+      </p>
+    </div>
+  </div>
+  <div style="height:100px;"></div>
+</div>

@@ -1,0 +1,98 @@
+#set -x
+set -e
+set -u
+
+set +e
+platform='unknown'
+unamestr=`uname`
+version=`0.0.2`
+
+if [[ "$unamestr" == 'Linux' ]]; then
+   platform='linux'
+elif [[ "$unamestr" == 'FreeBSD' ]]; then
+   platform='freebsd'
+elif [[ "$unamestr" == 'Darwin' ]]; then
+   platform='osx'
+fi
+
+if [[ "$platform" == 'osx' ]]; then
+  # show the banner and wait for a response
+  printf "%s" $'\e[1;32m
+                                   
+          ##                       
+         #  #                      
+  ###    #      ###   # ##   #   # 
+ #   #  ####   #   #  ##  #  #   # 
+ #       #     #####  #   #   # #  
+ #   #   #     #      #   #   # #  
+  ###    #      ###   #   #    #   
+                                   
+                                   
+  \e[1;31m
+  \e[0m
+  Hello! Welcome to the easy install of cfenv.
+  \e[0;1m
+  Ready to get started? Press any key to continue.\e[0m'
+  read -n 1 -s
+
+  echo "
+  --> Making sure ~/.cfenv exists and belongs to you."
+
+  mkdir -p $HOME/.cfenv
+
+  if [ ! -d $HOME/.cfenv/.git ]; then
+    echo
+    echo "
+  --> Grabbing Latest CFENV version..."
+
+    git clone https://github.com/joshuairl/railoenv.git $HOME/.cfenv
+  else
+    echo
+    printf "%s" $'\e[31m
+  Warning! Railo already appears to be installed...\e[1;31m
+    \e[0;1m'
+    read -p "
+  Would you like to override the for update to installation? (y/n)" RESP
+    printf "%s" $'\e[0;0m'
+    if [ "$RESP" = "n" ]; then
+    
+      echo "
+  --> Cancelled installation."
+      exit 1
+    else
+      echo "
+  --> Removing previous Railo files at $HOME/.cfenv..."
+      sudo rm -rf $HOME/.cfenv
+
+      echo "
+  --> Re-creating the $HOME/.cfenv directory and ensuring your ownership."
+      sudo mkdir -p $HOME/.cfenv
+      sudo chown $USER:staff $HOME/.cfenv
+      echo
+      echo "
+  --> Grabbing Latest Railo Express and arranging things. Be patient this may take a while."
+
+      git clone https://github.com/joshuairl/railoenv.git $HOME/.cfenv
+    fi
+  fi
+
+  echo "
+  --> Finalizing installation..."
+  touch $HOME/.profile
+  echo "source $HOME/.cfenv/env.sh" >> "$HOME/.profile"
+
+  cd $HOME
+
+elif [[ "$platform" -eq 'freebsd' ]]; then
+  echo "FREEBSD"
+elif [[ "$platform" -eq 'linux' ]]; then
+  echo "LINUX"
+fi
+
+printf "%s" $'\e[0;1m'
+echo "
+  You're all set!
+  Close any active terminal windows and re-open to ensure everything is properly sourced.
+  If you do not wish to close terminal, you may try to type \'source ~/.profile\' to enable it for this session.
+"
+printf "%s" $'\e[0;0m'
