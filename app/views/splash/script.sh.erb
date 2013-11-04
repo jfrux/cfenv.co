@@ -44,8 +44,7 @@ if [[ "$platform" == 'osx' ]]; then
     echo
     echo "cd /
   --> Grabbing Latest CFENV version..."
-    rm -rf /tmp/cfenv
-    rm /tmp/cfenv.zip
+    
     mkdir -p /tmp/cfenv
     if type curl &>/dev/null; then
       curl -C - -o "/tmp/cfenv.zip" -qLf "https://github.com/joshuairl/cfenv/archive/master.zip"
@@ -121,4 +120,7 @@ echo "
   Close any active terminal windows and re-open to ensure everything is properly sourced.
   If you do not wish to close terminal, you may try to type 'source ~/.profile' to enable it for this session.
 "
+
+rm -rf /tmp/cfenv
+rm /tmp/cfenv.zip
 printf "%s" $'\e[0;0m'
