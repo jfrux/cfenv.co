@@ -1,3 +1,4 @@
+#set -x
 set -e
 set -u
 
@@ -16,7 +17,8 @@ fi
 
 if [[ "$platform" == 'osx' ]]; then
   # show the banner and wait for a response
-  printf "%s" $'\e[1;32m 
+  printf "%s" $'\e[1;32m
+                                   
           ##                       
          #  #                      
   ###    #      ###   # ##   #   # 
@@ -24,6 +26,8 @@ if [[ "$platform" == 'osx' ]]; then
  #       #     #####  #   #   # #  
  #   #   #     #      #   #   # #  
   ###    #      ###   #   #    #   
+                                   
+                                   
   \e[1;31m
   \e[0m
   Hello! Welcome to the easy install of cfenv.
@@ -47,8 +51,8 @@ if [[ "$platform" == 'osx' ]]; then
       cp -rf /tmp/cfenv/cfenv-master/* $HOME/.cfenv
     elif type wget &>/dev/null; then
       wget -nv -c -O "/tmp/cfenv.zip" "https://github.com/joshuairl/cfenv/archive/master.zip"
-
       tar -xf /tmp/cfenv.zip -C /tmp/cfenv/
+      cp -rf /tmp/cfenv/cfenv-master/* $HOME/.cfenv
     else
       echo "error: please install \`curl\` or \`wget\` and try again" >&2
       exit 1
@@ -69,7 +73,7 @@ if [[ "$platform" == 'osx' ]]; then
     else
       echo "
   --> Removing previous files at $HOME/.cfenv..."
-      rm -rf $HOME/.cfenv
+      sudo rm -rf $HOME/.cfenv
 
       echo "
   --> Re-creating the $HOME/.cfenv directory and ensuring your ownership."
@@ -95,7 +99,6 @@ if [[ "$platform" == 'osx' ]]; then
   touch $HOME/.profile
   echo "source $HOME/.cfenv/env.sh" >> "$HOME/.profile"
   chmod +x $HOME/.cfenv/libexec/*
-  
   cd $HOME
 
 elif [[ "$platform" -eq 'freebsd' ]]; then
