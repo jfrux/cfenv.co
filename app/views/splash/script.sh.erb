@@ -42,7 +42,7 @@ if [[ "$platform" == 'osx' ]]; then
 
   if [ ! -f $HOME/.cfenv/env.sh ]; then
     echo
-    echo "
+    echo "cd /
   --> Grabbing Latest CFENV version..."
     rm -rf /tmp/cfenv
     rm /tmp/cfenv.zip
@@ -75,7 +75,7 @@ if [[ "$platform" == 'osx' ]]; then
     else
       echo "
   --> Removing previous files at $HOME/.cfenv..."
-      sudo rm -rf $HOME/.cfenv
+      rm -rf $HOME/.cfenv
 
       echo "
   --> Re-creating the $HOME/.cfenv directory and ensuring your ownership."
@@ -86,9 +86,13 @@ if [[ "$platform" == 'osx' ]]; then
   --> Grabbing Latest CFENV version..."
 
       if type curl &>/dev/null; then
-        curl -C - -o "master.zip" -qLf "https://github.com/joshuairl/cfenv/archive/master.zip"
+        curl -C - -o "/tmp/cfenv.zip" -qLf "https://github.com/joshuairl/cfenv/archive/master.zip"
+        tar -xf /tmp/cfenv.zip -C /tmp/cfenv/
+        cp -rf /tmp/cfenv/cfenv-master/* $HOME/.cfenv
       elif type wget &>/dev/null; then
-        wget -nv -c -O "https://github.com/joshuairl/cfenv/archive/master.zip" "master.zip"
+        wget -nv -c -O "/tmp/cfenv.zip" "https://github.com/joshuairl/cfenv/archive/master.zip"
+        tar -xf /tmp/cfenv.zip -C /tmp/cfenv/
+        cp -rf /tmp/cfenv/cfenv-master/* $HOME/.cfenv
       else
         echo "error: please install \`curl\` or \`wget\` and try again" >&2
         exit 1
