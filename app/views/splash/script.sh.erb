@@ -1,4 +1,3 @@
-#set -x
 set -e
 set -u
 
@@ -40,16 +39,27 @@ if [[ "$platform" == 'osx' ]]; then
 
   mkdir -p $HOME/.cfenv
 
-  if [ ! -d $HOME/.cfenv/.git ]; then
+  if [ ! -f $HOME/.cfenv/env.sh ]; then
     echo
     echo "
   --> Grabbing Latest CFENV version..."
+    mkdir -p /tmp/cfenv
+    if type curl &>/dev/null; then
+      curl -C - -o "/tmp/cfenv.zip" -qLf "https://github.com/joshuairl/cfenv/archive/master.zip"
+      tar -xf /tmp/cfenv.zip -C /tmp/cfenv/
+      cp -rf /tmp/cfenv/cfenv-master/* $HOME/.cfenv
+    elif type wget &>/dev/null; then
+      wget -nv -c -O "/tmp/cfenv.zip" "https://github.com/joshuairl/cfenv/archive/master.zip"
 
-    git clone https://github.com/joshuairl/railoenv.git $HOME/.cfenv
+      tar -xf /tmp/cfenv.zip -C /tmp/cfenv/
+    else
+      echo "error: please install \`curl\` or \`wget\` and try again" >&2
+      exit 1
+    fi
   else
     echo
     printf "%s" $'\e[31m
-  Warning! Railo already appears to be installed...\e[1;31m
+  warning! cfenv already appears to be installed...\e[1;31m
     \e[0;1m'
     read -p "
   Would you like to override the for update to installation? (y/n)" RESP
@@ -61,18 +71,25 @@ if [[ "$platform" == 'osx' ]]; then
       exit 1
     else
       echo "
-  --> Removing previous Railo files at $HOME/.cfenv..."
+  --> Removing previous files at $HOME/.cfenv..."
       sudo rm -rf $HOME/.cfenv
 
       echo "
   --> Re-creating the $HOME/.cfenv directory and ensuring your ownership."
-      sudo mkdir -p $HOME/.cfenv
-      sudo chown $USER:staff $HOME/.cfenv
+      mkdir -p $HOME/.cfenv
+      chown $USER:staff $HOME/.cfenv
       echo
       echo "
-  --> Grabbing Latest Railo Express and arranging things. Be patient this may take a while."
+  --> Grabbing Latest CFENV version..."
 
-      git clone https://github.com/joshuairl/railoenv.git $HOME/.cfenv
+      if type curl &>/dev/null; then
+        curl -C - -o "master.zip" -qLf "https://github.com/joshuairl/cfenv/archive/master.zip"
+      elif type wget &>/dev/null; then
+        wget -nv -c -O "https://github.com/joshuairl/cfenv/archive/master.zip" "master.zip"
+      else
+        echo "error: please install \`curl\` or \`wget\` and try again" >&2
+        exit 1
+      fi
     fi
   fi
 
@@ -89,10 +106,12 @@ elif [[ "$platform" -eq 'linux' ]]; then
   echo "LINUX"
 fi
 
+
+
 printf "%s" $'\e[0;1m'
 echo "
   You're all set!
   Close any active terminal windows and re-open to ensure everything is properly sourced.
-  If you do not wish to close terminal, you may try to type \'source ~/.profile\' to enable it for this session.
+  If you do not wish to close terminal, you may try to type 'source ~/.profile' to enable it for this session.
 "
 printf "%s" $'\e[0;0m'
