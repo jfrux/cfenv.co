@@ -5,7 +5,7 @@ set -u
 set +e
 platform='unknown'
 unamestr=`uname`
-version=`0.0.2`
+version='0.0.2'
 
 if [[ "$unamestr" == 'Linux' ]]; then
    platform='linux'
@@ -46,7 +46,7 @@ if [[ "$platform" == 'osx' ]]; then
   --> Grabbing Latest CFENV version..."
     
     mkdir -p /tmp/cfenv
-    
+
     if type curl &>/dev/null; then
       curl -C - -o "/tmp/cfenv.zip" -qLf "https://github.com/joshuairl/cfenv/archive/master.zip"
       tar -xf /tmp/cfenv.zip -C /tmp/cfenv/
